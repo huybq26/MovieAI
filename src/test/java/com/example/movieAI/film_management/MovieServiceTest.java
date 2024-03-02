@@ -26,10 +26,10 @@ public class MovieServiceTest {
 
     @Test
     public void testFindAllMovies() {
-        List<Object[]> mockMovies = new ArrayList<>();
+        List<MovieEntity> mockMovies = new ArrayList<>();
         Mockito.when(movieRepository.findAllMovies()).thenReturn(mockMovies);
 
-        List<Object[]> result = movieService.findAllMovies();
+        List<MovieEntity> result = movieService.findAllMovies();
 
         assertEquals(mockMovies, result);
     }
@@ -38,27 +38,27 @@ public class MovieServiceTest {
     public void testFindAllMoviesWithDatabaseError() {
         Mockito.when(movieRepository.findAllMovies()).thenThrow(new DataAccessException("Database error") {
         });
-        List<Object[]> result = movieService.findAllMovies();
+        List<MovieEntity> result = movieService.findAllMovies();
         assertNotNull(result);
         assertEquals(0, result.size());
     }
 
     @Test
     public void testFindCurrentMovies() {
-        List<Object[]> mockCurrentMovies = new ArrayList<>();
+        List<MovieEntity> mockCurrentMovies = new ArrayList<>();
         Mockito.when(movieRepository.findCurrentMovies()).thenReturn(mockCurrentMovies);
 
-        List<Object[]> result = movieService.findCurrentMovies();
+        List<MovieEntity> result = movieService.findCurrentMovies();
 
         assertEquals(mockCurrentMovies, result);
     }
 
     @Test
     public void testFindUpcomingMovies() {
-        List<Object[]> mockUpcomingMovies = new ArrayList<>();
+        List<MovieEntity> mockUpcomingMovies = new ArrayList<>();
         Mockito.when(movieRepository.findUpcomingMovies()).thenReturn(mockUpcomingMovies);
 
-        List<Object[]> result = movieService.findUpcomingMovies();
+        List<MovieEntity> result = movieService.findUpcomingMovies();
 
         assertEquals(mockUpcomingMovies, result);
     }

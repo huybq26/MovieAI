@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
-    @Query("SELECT " +
+    @Query(value = "SELECT " +
             "m.id, " +
             "m.name AS title, " +
             "m.image AS bannerSrc, " +
@@ -30,10 +30,10 @@ public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
             "LEFT JOIN mac.actor ac " +
             "LEFT JOIN m.tags mt " +
             "LEFT JOIN mt.tag t " +
-            "GROUP BY m.id, m.name")
-    List<Object[]> findAllMovies();
+            "GROUP BY m.id, m.name", nativeQuery = true)
+    List<MovieEntity> findAllMovies();
 
-    @Query("SELECT " +
+    @Query(value = "SELECT " +
             "m.id, " +
             "m.name AS title, " +
             "m.image AS bannerSrc, " +
@@ -55,10 +55,10 @@ public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
             "LEFT JOIN m.tags mt " +
             "LEFT JOIN mt.tag t " +
             "WHERE m.is_current = 1 "+
-            "GROUP BY m.id, m.name")
-    List<Object[]> findCurrentMovies();
+            "GROUP BY m.id, m.name", nativeQuery = true)
+    List<MovieEntity> findCurrentMovies();
 
-    @Query("SELECT " +
+    @Query(value = "SELECT " +
             "m.id, " +
             "m.name AS title, " +
             "m.image AS bannerSrc, " +
@@ -80,17 +80,17 @@ public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
             "LEFT JOIN m.tags mt " +
             "LEFT JOIN mt.tag t " +
             "WHERE m.is_current = 0 "+
-            "GROUP BY m.id, m.name")
-    List<Object[]> findUpcomingMovies();
+            "GROUP BY m.id, m.name", nativeQuery = true)
+    List<MovieEntity> findUpcomingMovies();
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM Movie m WHERE m.id = :id")
+    @Query(value = "DELETE FROM Movie m WHERE m.id = :id", nativeQuery = true)
     void deleteMovieById(@Param("id") Long id);
 
 
     @Modifying
-    @Query("UPDATE Movie m SET " +
+    @Query(value = "UPDATE Movie m SET " +
             "m.name = :name, " +
             "m.languages = :languages, " +
             "m.description = :description, " +
@@ -98,7 +98,7 @@ public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
             "m.release_date = :releaseDate, " +
             "m.rating = :rating, " +
             "m.is_current = :isCurrent " +
-            "WHERE m.id = :id")
+            "WHERE m.id = :id", nativeQuery = true)
     void updateMovie(
             @Param("id") Long id,
             @Param("name") String name,
@@ -112,8 +112,8 @@ public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
 
     @Transactional
     @Modifying
-    @Query("INSERT INTO Movie (name, languages, description, running_time, release_date, rating, trailer, is_current, image) " +
-            "VALUES (:name, :languages, :description, :runningTime, :releaseDate, :rating, :trailer, :isCurrent, :image)")
+    @Query(value = "INSERT INTO Movie (name, languages, description, running_time, release_date, rating, trailer, is_current, image) " +
+            "VALUES (:name, :languages, :description, :runningTime, :releaseDate, :rating, :trailer, :isCurrent, :image)", nativeQuery = true)
     void insertMovie(
             @Param("name") String name,
             @Param("languages") String languages,

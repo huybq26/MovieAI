@@ -17,7 +17,7 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public List<Object[]> findAllMovies() {
+    public List<MovieEntity> findAllMovies() {
         try {
             return movieRepository.findAllMovies();
         } catch (DataAccessException ex) {
@@ -27,7 +27,7 @@ public class MovieService {
         }
     }
 
-    public List<Object[]> findCurrentMovies() {
+    public List<MovieEntity> findCurrentMovies() {
         try {
             return movieRepository.findCurrentMovies();
         } catch (DataAccessException ex) {
@@ -37,7 +37,7 @@ public class MovieService {
         }
     }
 
-    public List<Object[]> findUpcomingMovies() {
+    public List<MovieEntity> findUpcomingMovies() {
         try {
             return movieRepository.findUpcomingMovies();
         } catch (DataAccessException ex) {
