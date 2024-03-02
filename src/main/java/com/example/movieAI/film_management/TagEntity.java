@@ -2,12 +2,22 @@ package com.example.movieAI.film_management;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name = "Tag")
 public class TagEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremented primary key
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Movie_Tag",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<MovieEntity> movies;
 
     @Column(nullable = false, length = 255)
     private String name;

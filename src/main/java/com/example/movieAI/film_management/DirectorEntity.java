@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "Director")
 public class DirectorEntity {
@@ -12,6 +13,14 @@ public class DirectorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremented primary key
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Movie_Director",
+            joinColumns = @JoinColumn(name = "director_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<MovieEntity> movies;
 
     @Column(nullable = false, length = 255)
     private String name;

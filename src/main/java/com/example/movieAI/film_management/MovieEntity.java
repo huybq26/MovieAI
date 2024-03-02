@@ -3,6 +3,7 @@ package com.example.movieAI.film_management;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name="Movie")
 public class MovieEntity {
@@ -10,6 +11,15 @@ public class MovieEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "movie_id_seq")
     @SequenceGenerator(name = "movie_id_seq", sequenceName = "movie_id_sequence", allocationSize = 1)
     private Long id;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
+    private Set<ActorEntity> actors;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
+    private Set<DirectorEntity> directors;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
+    private Set<TagEntity> tags;
 
     @Column(nullable = false, length = 255)
     private String name;

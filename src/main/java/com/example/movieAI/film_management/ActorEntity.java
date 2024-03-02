@@ -3,12 +3,21 @@ package com.example.movieAI.film_management;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "Actor")
 public class ActorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Movie_Actor",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<MovieEntity> movies;
 
     @Column(nullable = false, length = 255)
     private String name;
