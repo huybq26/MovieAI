@@ -5,9 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
-@Entity(name = "Director")
+@Entity
+@Table(name = "director")
 public class DirectorEntity {
 
     @Id
@@ -16,7 +18,7 @@ public class DirectorEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "Movie_Director",
+            name = "movie_director",
             joinColumns = @JoinColumn(name = "director_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )

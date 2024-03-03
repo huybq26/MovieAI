@@ -3,7 +3,8 @@ package com.example.movieAI.film_management;
 import jakarta.persistence.*;
 
 
-@Entity(name = "Trivia")
+@Entity
+@Table(name = "trivia")
 public class TriviaEntity {
 
     @Id

@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
-@Entity(name = "Tag")
+@Entity
+@Table(name = "tag")
 public class TagEntity {
 
     @Id
@@ -13,7 +14,7 @@ public class TagEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "Movie_Tag",
+            name = "movie_tag",
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )

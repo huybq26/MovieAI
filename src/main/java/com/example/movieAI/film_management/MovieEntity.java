@@ -4,22 +4,14 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@Entity(name="Movie")
+@Entity
+@Table(name = "movie")
 public class MovieEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "movie_id_seq")
-    @SequenceGenerator(name = "movie_id_seq", sequenceName = "movie_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-incremented primary key
     private Long id;
-
-    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
-    private Set<ActorEntity> actors;
-
-    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
-    private Set<DirectorEntity> directors;
-
-    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST})
-    private Set<TagEntity> tags;
 
     @Column(nullable = false, length = 255)
     private String name;
@@ -29,7 +21,6 @@ public class MovieEntity {
 
     @Column(nullable = false, length = 255)
     private String trailer;
-
 
 
     @Column(nullable = false, length = 100)
@@ -48,6 +39,15 @@ public class MovieEntity {
     private float rating;
 
     private int running_time;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    private Set<ActorEntity> actors;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    private Set<DirectorEntity> directors;
+
+    @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    private Set<TagEntity> tags;
 
 
 
@@ -115,8 +115,8 @@ public class MovieEntity {
         this.languages = languages;
     }
 
-    public LocalDate getRelease_date() {
-        return release_date;
+    public String getRelease_date() {
+        return String.valueOf(release_date);
     }
 
     public void setRelease_date(LocalDate release_date) {
@@ -155,6 +155,24 @@ public class MovieEntity {
         this.running_time = running_time;
     }
 
+    public String getActor() {
+        return actors.stream()
+                .map(ActorEntity::getName)
+                .collect(Collectors.joining(","));
+    }
+
+    public String getDirector() {
+        return directors.stream()
+                .map(DirectorEntity::getName)
+                .collect(Collectors.joining(","));
+    }
+
+    public String getTag() {
+        return tags.stream()
+                .map(TagEntity::getName)
+                .collect(Collectors.joining(","));
+    }
+
     @Override
     public String toString() {
         return "MovieEntity{" +
@@ -168,6 +186,9 @@ public class MovieEntity {
                 ", is_current=" + is_current +
                 ", rating=" + rating +
                 ", running_time=" + running_time +
+                ", actors=" + actors +
+                ", directors=" + directors +
+                ", tags=" + tags +
                 '}';
     }
 }
