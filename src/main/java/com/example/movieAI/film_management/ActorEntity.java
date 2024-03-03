@@ -48,6 +48,10 @@ public class ActorEntity {
 
     }
 
+    public ActorEntity(String s) {
+        this.name = s;
+    }
+
     public Long getId() {
         return id;
     }

@@ -51,6 +51,10 @@ public class DirectorEntity {
 
     }
 
+    public DirectorEntity(String s) {
+        this.name = s;
+    }
+
     public Long getId() {
         return id;
     }

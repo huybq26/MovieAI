@@ -3,6 +3,8 @@ package com.example.movieAI.film_management;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -59,7 +61,7 @@ public class MovieEntity {
                        String description,
                        int is_current,
                        float rating,
-                       int running_time) {
+                       int running_time,String directors, String actors, String tags) {
         this.name = name;
         this.image = image;
         this.trailer = trailer;
@@ -172,6 +174,8 @@ public class MovieEntity {
                 .map(TagEntity::getName)
                 .collect(Collectors.joining(","));
     }
+
+
 
     @Override
     public String toString() {

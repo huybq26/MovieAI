@@ -147,7 +147,7 @@ public class MovieServiceTest {
 
 
         assertThrows(DataAccessException.class, () ->
-                movieService.insertMovie("Test Movie", "English", "Description", 120, "2022-03-01", 4.5f, "Trailer", 1, "Image")
+                movieService.insertMovie("Test Movie", "English", "Description", 120, "2022-03-01", 4.5f, "Trailer", 1, "Image", "BuiQHuy", "BuiQHuy,Harry,Bui", "Comedy,Adventure")
         );
     }
 }

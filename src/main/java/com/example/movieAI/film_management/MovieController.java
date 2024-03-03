@@ -71,18 +71,40 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> insertMovie(@RequestBody MovieEntity movieRequestDto) {
+    public ResponseEntity<String> insertMovie(@RequestParam String name,
+                                              @RequestParam String languages,
+                                              @RequestParam String description,
+                                              @RequestParam int running_time,
+                                              @RequestParam String release_date,
+                                              @RequestParam float rating,
+                                              @RequestParam String trailer,
+                                              @RequestParam int is_current,
+                                              @RequestParam String image,
+                                              @RequestParam String director,
+                                              @RequestParam String actor,
+                                              @RequestParam String tag) {
         movieService.insertMovie(
-                movieRequestDto.getName(),
-                movieRequestDto.getLanguages(),
-                movieRequestDto.getDescription(),
-                movieRequestDto.getRunning_time(),
-                movieRequestDto.getRelease_date(),
-                movieRequestDto.getRating(),
-                movieRequestDto.getTrailer(),
-                movieRequestDto.getIs_current(),
-                movieRequestDto.getImage()
+                name, languages, description, running_time, release_date, rating, trailer, is_current, image, director, actor, tag
         );
         return new ResponseEntity<>("New movie added successfully.", HttpStatus.CREATED);
     }
+
+    @PatchMapping("/updateTrailer/{id}")
+    public ResponseEntity<String> updateTrailer(@PathVariable Long id, @RequestParam String trailer) {
+        movieService.updateTrailer(id, trailer);
+        return ResponseEntity.ok("Trailer updated successfully.");
+    }
+
+    @PatchMapping("/updateImage/{id}")
+    public ResponseEntity<String> updateImage(@PathVariable Long id, @RequestParam String image) {
+        movieService.updateImage(id, image);
+        return ResponseEntity.ok("Image updated successfully.");
+    }
+
+    @GetMapping("/allTrivia")
+    public ResponseEntity<List<TriviaEntity>> findAllTrivia() {
+        List<TriviaEntity> triviaList = movieService.findAllTrivia();
+        return ResponseEntity.ok(triviaList);
+    }
+
 }
