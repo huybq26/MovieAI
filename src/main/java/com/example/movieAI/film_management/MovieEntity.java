@@ -1,5 +1,7 @@
 package com.example.movieAI.film_management;
 
+import com.example.movieAI.booking.MovieTimeslotEntity;
+import com.example.movieAI.booking.TimeslotEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -51,7 +53,8 @@ public class MovieEntity {
     @ManyToMany(mappedBy = "movies", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Set<TagEntity> tags;
 
-
+    @OneToMany(mappedBy = "movie")
+    private Set<MovieTimeslotEntity> movieTimeSlots;
 
     public MovieEntity(String name,
                        String image,
