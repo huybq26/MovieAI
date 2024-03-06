@@ -31,7 +31,53 @@ public class SlotSeatUserEntity {
     @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp time;
 
+    public Long getBookingId() {
+        return bookingId;
+    }
 
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
+    }
+
+    public MovieTimeslotEntity getMovieTimeSlot() {
+        return movieTimeSlot;
+    }
+
+    public void setMovieTimeSlot(MovieTimeslotEntity movieTimeSlot) {
+        this.movieTimeSlot = movieTimeSlot;
+    }
+
+    public String getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(String seatId) {
+        this.seatId = seatId;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public SeatStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SeatStatus status) {
+        this.status = status;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
     public enum SeatStatus {
         AVAIL, HOLDING, BOOKED
