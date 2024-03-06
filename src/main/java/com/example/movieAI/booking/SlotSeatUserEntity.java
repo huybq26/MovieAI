@@ -28,7 +28,7 @@ public class SlotSeatUserEntity {
     @Column(name = "status")
     private SeatStatus status;
 
-    @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "time", nullable = false)
     private Timestamp time;
 
     public Long getBookingId() {

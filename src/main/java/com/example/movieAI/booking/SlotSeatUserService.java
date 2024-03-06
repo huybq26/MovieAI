@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 @Service
@@ -55,7 +57,7 @@ public class SlotSeatUserService {
 
         slotSeatUserEntity.setSeatId(seatId);
         slotSeatUserEntity.setStatus(SlotSeatUserEntity.SeatStatus.HOLDING);
-
+        slotSeatUserEntity.setTime(Timestamp.from(Instant.now()));
         return slotSeatUserRepository.save(slotSeatUserEntity);
     }
 
